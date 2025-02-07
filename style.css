@@ -1,0 +1,123 @@
+
+@font-face {
+    font-family: 'amora';
+    src: url('assets/AmoraSolaraDemoRegular-BF67a16a3b945ec.ttf') format('truetype');
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@keyframes prism {
+    0% { background-position: 0% 100%; }
+    100% { background-position: 100% 0%; }
+}
+body {
+    font-family: 'amora';
+   
+    display: flex;
+    
+    
+    justify-content: center;
+    width: 100vw;
+    background: linear-gradient(to left, #0a0716,  /* Deep Violet */
+    #000c19,  /* Electric Blue */
+    #002523,  /* Teal Glow */
+    #250025,  /* Dark Magenta */
+    #001c1c);
+    background-size: 300% 300%;
+
+    animation: prism 6s infinite alternate ease-in-out;
+}
+
+div#container {
+    background-color: white;
+    width: 920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0px 40px 0px;
+}
+
+img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px; /* Espaço entre as imagens */
+}
+
+#fotos {
+    padding: 10px;
+    column-count: 4; /* Define 3 colunas */
+    column-gap: 10px;
+  
+    
+}
+
+@media screen and (max-width: 919px) {
+    #fotos{
+        column-count: 3;
+    }
+  
+    
+}
+@media screen and (max-width: 590px) {
+    #fotos{
+        column-count: 2;
+    }
+    .img-falso{
+        max-width: 350px;
+        z-index: 2;
+
+    }
+    
+}
+@media screen and (max-width: 230px) {
+    #fotos{
+        column-count: 1;
+    }
+    
+}
+
+h1 {
+    font-family: 'amora';
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+#lupa {
+    width: 30px;
+    height: 30px;
+}
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100vw;
+}
+
+
+.f {
+    color: rgb(0, 0, 0);
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.609);
+    z-index: 0;
+
+    & .img-falso {
+        width: 430px;
+        z-index: 2;
+    }
+}
+
+
+
+.oculto {
+    display: none;
+}
