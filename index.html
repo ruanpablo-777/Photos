@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/galeria.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <title>Galeria de Fotos</title>
+    <title>PhoTos</title>
 </head>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
 <body name="body">
     <div id="container">
         <div id="navbar">
-            <input type="text" name="buscar" id="search">
-            <h1 id="titulo">PhoTos</h1>
-            <img src="img/lupa.png" alt="" id="lupa">
-        </div>
-            <div class="fotos" id="fotos">
+            <div id="search-lupa">
+                <input type="text" name="buscar" id="search" placeholder="Search" >
+                <img src="img/lupa.png" alt="" id="lupa-input">
             </div>
-       
+            <div id="background-input">
+            </div>
+            <h1 id="titulo">PhoTos</h1>
+            <div id="background-lupa"><img src="img/lupa.png" alt="" id="lupa"></div>
+        </div>
+        <div class="fotos" id="fotos">
+        </div>
+
     </div>
 
     <div class="f">
         <img src="" alt="" class="img-falso">
     </div>
-    
+
 </body>
 <script src="script.js"></script>
+
 </html>

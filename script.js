@@ -2,6 +2,11 @@ let img = document.getElementById('fotos')
 let f = document.querySelector('.f')
 let search = document.getElementById('search')
 let searchValue = ''
+let lupa = document.getElementById('lupa')
+let backgroundInput = document.getElementById('background-input')
+let backgroundLupa = document.getElementById('background-lupa')
+let divVazia = document.getElementById('div-vazia')
+let searchLupa = document.getElementById('search-lupa')
 
 document.addEventListener('DOMContentLoaded', () => {
     getFotos()
@@ -9,25 +14,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 search.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        img.querySelectorAll("img").forEach(img => img.remove());
-
-
-        searchValue = search.value
-
-        getFotos()
+            img.querySelectorAll("img").forEach(img => img.remove());
+            backgroundInput.style.display = 'none'
+            searchLupa.style.display = 'none'
+            searchValue = search.value
+            getFotos()
     }
 
 
+
 })
+
+lupa.addEventListener('click', () => {
+    backgroundInput.style.display = 'flex'
+    searchLupa.style.display = 'flex'
+
+})
+
+document.getElementById('lupa-input').addEventListener('click', () => {
+    if (!search.value) {
+        console.log(!search.value)
+    } else {
+    img.querySelectorAll("img").forEach(img => img.remove());
+    backgroundInput.style.display = 'none'
+    searchLupa.style.display = 'none'
+
+    searchValue = search.value
+
+    
+
+    getFotos()
+    }
+})
+document.getElementById('background-input').addEventListener('click', () => {
+    backgroundInput.style.display = 'none'
+    searchLupa.style.display = 'none'
+
+
+})
+
 
 //pegando fotos do servidor
 async function getFotos() {
     try {
 
-        const apiKey = "syZxZ-bTJIRZxA3joPHP-FQ05A81VcKDSOUsC4e4A6Q"// minha chave
+        const apiKey = "3WmGvEfJbYHDCTpU8cyNkGaTIEPcInLn-SRTZQf4eKI"// minha chave
         // buscar fotos com metodo GET em conteudo JSON
 
-        const response = await fetch(`https://api.unsplash.com/photos/random/?query=${searchValue}&count=3&client_id=${apiKey}`, {
+        const response = await fetch(`https://api.unsplash.com/photos/random/?query=${searchValue}&count=30&client_id=${apiKey}`, {
             method: 'GET',
             headers: {
                 'content-Type': 'application/json'
@@ -44,7 +78,7 @@ async function getFotos() {
         console.log(data)// mostra todos os dados
         data.forEach((element, number) => { //pega todas os dados e mostra em tela
             let fotos = document.createElement('img')
-            fotos.src = element.urls.full // atribui a o link src,img a minha variavel
+            fotos.src = element.urls.regular // atribui a o link src,img a minha variavel
             img.appendChild(fotos) // guarda a imagem no elemento img 
 
             document.addEventListener('click', (e) => { // evento de click
