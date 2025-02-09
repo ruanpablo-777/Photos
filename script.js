@@ -5,7 +5,6 @@ let searchValue = ''
 let lupa = document.getElementById('lupa')
 let backgroundInput = document.getElementById('background-input')
 let backgroundLupa = document.getElementById('background-lupa')
-let divVazia = document.getElementById('div-vazia')
 let searchLupa = document.getElementById('search-lupa')
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,15 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 search.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-            img.querySelectorAll("img").forEach(img => img.remove());
-            backgroundInput.style.display = 'none'
-            searchLupa.style.display = 'none'
-            searchValue = search.value
-            getFotos()
+        img.querySelectorAll("img").forEach(img => img.remove());
+        backgroundInput.style.display = 'none'
+        searchLupa.style.display = 'none'
+        searchValue = search.value
+        document.querySelector('.load').style.display = 'flex'
+
+        getFotos()
     }
-
-
-
 })
 
 lupa.addEventListener('click', () => {
@@ -35,30 +33,27 @@ document.getElementById('lupa-input').addEventListener('click', () => {
     if (!search.value) {
         console.log(!search.value)
     } else {
-    img.querySelectorAll("img").forEach(img => img.remove());
-    backgroundInput.style.display = 'none'
-    searchLupa.style.display = 'none'
+        img.querySelectorAll("img").forEach(img => img.remove());
+        backgroundInput.style.display = 'none'
+        searchLupa.style.display = 'none'
+        searchValue = search.value
+        document.querySelector('.load').style.display = 'flex'
 
-    searchValue = search.value
+        getFotos()
 
-    
-
-    getFotos()
     }
 })
 document.getElementById('background-input').addEventListener('click', () => {
     backgroundInput.style.display = 'none'
     searchLupa.style.display = 'none'
 
-
 })
-
 
 //pegando fotos do servidor
 async function getFotos() {
     try {
 
-        const apiKey = "3WmGvEfJbYHDCTpU8cyNkGaTIEPcInLn-SRTZQf4eKI"// minha chave
+        const apiKey = "FapmCjLQ0Xv2GFlKDHvzFlaDl73lk6ORFSASerxlbNE"// minha chave
         // buscar fotos com metodo GET em conteudo JSON
 
         const response = await fetch(`https://api.unsplash.com/photos/random/?query=${searchValue}&count=30&client_id=${apiKey}`, {
@@ -72,6 +67,9 @@ async function getFotos() {
         if (!response.ok) {
             throw new Error('error', response.status)
         }
+        let div = document.createElement('div')
+        div.classList.add('div-divisao')
+        div.style.display = 'none'
 
         //pegando os dados json e manipulando
         const data = await response.json()
@@ -79,7 +77,8 @@ async function getFotos() {
         data.forEach((element, number) => { //pega todas os dados e mostra em tela
             let fotos = document.createElement('img')
             fotos.src = element.urls.regular // atribui a o link src,img a minha variavel
-            img.appendChild(fotos) // guarda a imagem no elemento img 
+            div.appendChild(fotos)
+            img.appendChild(div) // guarda a imagem no elemento img 
 
             document.addEventListener('click', (e) => { // evento de click
                 if (e.target === fotos) {              //se meu parametro for igual a imagem clicada 
@@ -95,24 +94,51 @@ async function getFotos() {
             })
 
             f.addEventListener('click', () => {
-
                 f.style.display = 'none'
                 document.body.style.overflow = 'auto';
-
             })
 
-
-
         });
+        setTimeout(() => {
+            img.style.display = 'block'
+            div.style.display = 'block'
+            document.querySelector('.load').style.display = 'none'
 
 
+            
+        }, 4000)
 
     } catch (error) {
-        console.error("error ao buscar a foto:", error)
-    }
+        if(error) {
+            document.querySelector('.erro').innerHTML = 'Verifique sua conexão com a internet'
+            img.style.display = 'none'
+    
+           // window.alert('erro')
+            console.error("error ao buscar a foto:", error.message)
 
+        }
+    }
 }
 
 
 
-
+window.addEventListener('touchmove', () => {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+       let load =  document.querySelector('.load')
+       load.style.display = 'flex'
+       load.style.marginTop = '0px'
+       load.style.marginBottom = '30px'
+            getFotos()
+       
+    }
+})
+window.addEventListener('scroll', () => {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+       let load =  document.querySelector('.load')
+       load.style.display = 'flex'
+       load.style.marginTop = '0px'
+       load.style.marginBottom = '30px'
+            getFotos()
+       
+    }
+})
